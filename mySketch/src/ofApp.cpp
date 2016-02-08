@@ -1,66 +1,61 @@
 #include "ofApp.h"
+#include "orbits.h"
+#include <stdio.h>
 #include <math.h>
-
-double xPos;
-double yPos;
-double xVel;
-double yVel;
-
-double xAcc;
-double yAcc;
-double mass;
-
-ofPolyline line;
+#include <vector>
 
 
-vector<float> pointsX;
-vector<float> pointsY;
-vector<ofPoint> points;
+//initialize vector
+std::vector<Planet> planets;
+
 
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    //makes planet (xPos, yPos, xVel, yVel, mass, red, green, blue)
+    Planet earth(400,700, 1.4, 0, 10, 255, 0, 0);
+    Planet mars(500, 700, 2, 0, 10, 0, 255, 0);
+    Planet mars2(400, 100, 2, 0, 10, 0, 0, 255);
+    
+    
+    
+    planets.push_back(earth);
+    planets.push_back(mars);
+    planets.push_back(mars2);
+    
     ofSetFrameRate(100);
-    xPos = 400;
-    yPos = 700;
-    
-    xVel = 1.3;
-    yVel = 0;
-    //mass = pow(sqrt(pow(xVel,2)+pow(yVel,2)),2)/(yPos - 400);
-    
+
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    
-    xAcc = sin(atan2((400-xPos),(400-yPos))) * 2000/(pow(400-xPos,2) + pow(400 - yPos,2));
-    yAcc = cos(atan2((400-xPos),(400-yPos))) * 2000/(pow(400-xPos,2) + pow(400 - yPos,2));
-    
-    xVel += xAcc;
-    yVel += yAcc;
-    
-    xPos += xVel;
-    yPos += yVel;
-    
-    line.addVertex(xPos, yPos);
-    //pointsX.push_back(xPos);
-    //pointsY.push_back(yPos);
+ 
+    //accelerate and move planets
+    for(int i = 0; i < planets.size(); i++)
+    {
+        planets[i].acc();
+        planets[i].move();
+    }
     
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    //draw framerate
     ofDrawBitmapString(ofGetFrameRate(),50,10);
-    ofDrawBitmapString(yAcc, 50, 50);
-    ofDrawBitmapString(xAcc, 50, 100);
+    //draw planets
+    for(int i = 0; i < planets.size(); i++)
+    {
+        ofSetColor(planets[i].colorR,planets[i].colorG,planets[i].colorB);
+        ofDrawCircle(planets[i].xPos, planets[i].yPos, 5);
+        
+    }
     
+    //draw Sun
     ofSetColor(255,255,0);
     ofDrawCircle(400, 400, 20);
     
-    ofSetColor(0,0,255);
-    ofDrawCircle(xPos, yPos, 5);
-    line.draw();
     
     
 }
