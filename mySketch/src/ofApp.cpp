@@ -1,13 +1,18 @@
 #include "ofApp.h"
 #include "orbits.h"
+#include "sun.h"
 #include <stdio.h>
 #include <math.h>
 #include <iostream>
 #include <vector>
 
+//planet to sun collioion
+//planet radius
+//make collision thing a function
 
 //initialize vector
 std::vector<Planet> planets;
+std::vector<Sun> suns;
 
 
 //--------------------------------------------------------------
@@ -25,6 +30,12 @@ void ofApp::setup(){
     Planet mars2(400, 100, 2, 0, 10, 0, 0, 255);
     planets.push_back(mars2);
     mars2.~Planet();
+    
+    Sun sunOne(400, 400, 1000, 20);
+    suns.push_back(sunOne);
+    sunOne.~Sun();
+    
+    
     
     
     //ofSetFrameRate(100);
@@ -72,7 +83,12 @@ void ofApp::draw(){
     
     //draw Sun
     ofSetColor(255,255,0);
-    ofDrawCircle(400, 400, 20);
+    for(int i = 0; i < suns.size(); i++)
+    {
+        //ofSetColor(suns[i].colorR,suns[i].colorG,planets[i].colorB);
+        ofDrawCircle(suns[i].xPos, suns[i].yPos, suns[i].radius);
+        
+    }
     
     
     
