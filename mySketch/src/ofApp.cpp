@@ -2,6 +2,7 @@
 #include "orbits.h"
 #include <stdio.h>
 #include <math.h>
+#include <iostream>
 #include <vector>
 
 
@@ -11,19 +12,22 @@ std::vector<Planet> planets;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
+     ofBackground(0,0,0);
     //makes planet (xPos, yPos, xVel, yVel, mass, red, green, blue)
-    Planet earth(400,700, 1.4, 0, 10, 255, 0, 0);
-    Planet mars(500, 700, 2, 0, 10, 0, 255, 0);
-    Planet mars2(400, 100, 2, 0, 10, 0, 0, 255);
-    
-    
-    
+    Planet earth(700,400, 0, 1.5, 10, 255, 0, 0);
     planets.push_back(earth);
-    planets.push_back(mars);
-    planets.push_back(mars2);
+    earth.~Planet();
     
-    ofSetFrameRate(100);
+    Planet mars(500, 200, 2, 0, 10, 0, 255, 0);
+    planets.push_back(mars);
+    mars.~Planet();
+    
+    Planet mars2(400, 100, 2, 0, 10, 0, 0, 255);
+    planets.push_back(mars2);
+    mars2.~Planet();
+    
+    
+    //ofSetFrameRate(100);
 
 }
 
@@ -31,9 +35,23 @@ void ofApp::setup(){
 void ofApp::update(){
  
     //accelerate and move planets
-    for(int i = 0; i < planets.size(); i++)
+    for(int i = 0; i < planets.size(); i++) //This should be a function, send it sun vector and planet vector
     {
-        planets[i].acc();
+        for(int o = 0; o < planets.size(); o++){
+            if(o != i){
+                if(sqrt(pow(planets[i].xPos-planets[o].xPos,2) + pow(planets[i].yPos - planets[o].yPos,2)) < 10){
+                    planets.erase(planets.begin()+i);
+                    if(i > o){
+                       planets.erase(planets.begin()+o);
+                    }
+                    else if(i < o){
+                        planets.erase(planets.begin()+(o-1));
+                    }
+                    
+                }
+            }
+        }
+        planets[i].acc(planets,i);
         planets[i].move();
     }
     
@@ -55,6 +73,7 @@ void ofApp::draw(){
     //draw Sun
     ofSetColor(255,255,0);
     ofDrawCircle(400, 400, 20);
+    
     
     
     

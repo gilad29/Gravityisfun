@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofApp.h"
 
 //declerations only
 
@@ -18,9 +19,10 @@ public:
     int colorB;
     //constructor
     Planet(double xPosition, double yPosition, double xVelocity, double yVelocity, double planetMass, int colorRed, int colorGreen, int colorBlue);
+    //destructor
+    ~Planet();
     
-    
-    void acc();
+    void acc(vector<Planet>, int);
     void move();
     
 };
