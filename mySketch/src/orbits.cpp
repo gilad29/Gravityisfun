@@ -17,8 +17,8 @@ void Planet::acc(vector<Planet> planets, int num){
     for(int i = 0; i < planets.size(); i++ ){
         
         if(i != num){
-            xAcc = sin(atan2((planets[i].xPos-xPos),(planets[i].yPos-yPos))) * 100/(pow(planets[i].xPos-xPos,2) + pow(planets[i].yPos - yPos,2));
-            yAcc = cos(atan2((planets[i].xPos-xPos),(planets[i].yPos-yPos))) * 100/(pow(planets[i].xPos-xPos,2) + pow(planets[i].yPos - yPos,2));
+            xAcc = sin(atan2((planets[i].xPos-xPos),(planets[i].yPos-yPos))) * 50/(pow(planets[i].xPos-xPos,2) + pow(planets[i].yPos - yPos,2));
+            yAcc = cos(atan2((planets[i].xPos-xPos),(planets[i].yPos-yPos))) * 50/(pow(planets[i].xPos-xPos,2) + pow(planets[i].yPos - yPos,2));
             
             xVel += xAcc;
             yVel += yAcc;
@@ -46,13 +46,14 @@ Planet::~Planet(){
 }
 
 
-Planet::Planet(double xPosition, double yPosition, double xVelocity, double yVelocity, double planetMass, int colorRed, int colorGreen, int colorBlue){
+Planet::Planet(double xPosition, double yPosition, double xVelocity, double yVelocity, double planetMass, double planetRadius, int colorRed, int colorGreen, int colorBlue){
     
     xPos = xPosition;
     yPos = yPosition;
     xVel = xVelocity;
     yVel = yVelocity;
     mass = planetMass;
+    radius = planetRadius;
     colorR = colorRed;
     colorG = colorGreen;
     colorB = colorBlue;

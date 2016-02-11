@@ -14,11 +14,12 @@ public:
     double xAcc;
     double yAcc;
     double mass;
+    double radius;
     int colorR;
     int colorG;
     int colorB;
     //constructor
-    Planet(double xPosition, double yPosition, double xVelocity, double yVelocity, double planetMass, int colorRed, int colorGreen, int colorBlue);
+    Planet(double xPosition, double yPosition, double xVelocity, double yVelocity, double planetMass, double planetRadius, int colorRed, int colorGreen, int colorBlue);
     //destructor
     ~Planet();
     
