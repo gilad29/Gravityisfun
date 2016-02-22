@@ -5,25 +5,44 @@
 
 //declerations only
 
-class Planet{
+
+//Parent Class
+class Body{
 public:
     double xPos;
     double yPos;
-    double xVel;
-    double yVel;
-    double xAcc;
-    double yAcc;
     double mass;
     double radius;
     int colorR;
     int colorG;
     int colorB;
+    Body(double xPosition, double yPosition, double bodyMass, double bodyRadius, int colorRed, int colorGreen, int colorBlue);
+};
+
+
+//child of Body
+class Sun: public Body{
+public:
     //constructor
-    Planet(double xPosition, double yPosition, double xVelocity, double yVelocity, double planetMass, double planetRadius, int colorRed, int colorGreen, int colorBlue);
+    Sun(double xPosition, double yPosition, double bodyMass, double bodyRadius, int colorRed, int colorGreen, int colorBlue);
+    //destructor
+    ~Sun();
+};
+    
+//child of Body
+class Planet: public Body{
+public:
+    //special pieces not in body
+    double xVel;
+    double yVel;
+    double xAcc;
+    double yAcc;
+    void move();
+    void acc(vector<Planet>, vector<Sun>, int);
+    //constructor
+    Planet(double xVelocity, double yVelocity, double xPosition, double yPosition, double bodyMass, double bodyRadius, int colorRed, int colorGreen, int colorBlue);
     //destructor
     ~Planet();
     
-    void acc(vector<Planet>, int);
-    void move();
-    
 };
+
